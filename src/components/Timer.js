@@ -27,7 +27,7 @@ function Timer() {
         </button>
         { isActive && <button data-testid="pause-button"
                 onClick={() => setIsActive(false)}>
-          Activate
+          Pause
         </button> }
       </div>
   );
