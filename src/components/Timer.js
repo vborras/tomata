@@ -2,15 +2,16 @@ import React, {useEffect, useState} from 'react';
 
 function Timer() {
   const [delta, setDelta] = useState(25 * 60);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    if (delta > 0) {
+    if (delta > 0 && isActive) {
       const interval = setInterval(() => {
         setDelta(delta - 1);
       }, 1000);
       return () => clearInterval(interval);
     }
-  }, [delta]);
+  }, [delta, isActive]);
 
   const secondsDifference = (Math.floor(delta % 60)).toString()
       .padStart(2, '0');
@@ -18,7 +19,13 @@ function Timer() {
       .padStart(2, '0');
 
   return (
-      <h1 data-testid="timer">{minutesDifference}:{secondsDifference}</h1>
+      <div className="timer">
+        <h1 data-testid="countdown">{minutesDifference}:{secondsDifference}</h1>
+        <button data-testid="activation-button"
+                onClick={() => setIsActive(true)}>
+          Activate
+        </button>
+      </div>
   );
 }
 
