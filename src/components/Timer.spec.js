@@ -3,6 +3,11 @@ import Timer from './Timer';
 import {act, render} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+const activateCoundown = function (getByTestId) {
+    const activationButton = getByTestId('activation-button');
+    userEvent.click(activationButton)
+}
+
 describe('Timer', () => {
   beforeEach(() => {
     jest.useFakeTimers();
@@ -31,8 +36,7 @@ describe('Timer', () => {
   test('discounts one second at a time when activated', () => {
     const {getByTestId} = render(<Timer/>);
     const timer = getByTestId('countdown');
-    const activationButton = getByTestId('activation-button');
-    userEvent.click(activationButton)
+    activateCoundown(getByTestId)
 
     act(() => {
       jest.advanceTimersByTime(1000);
@@ -43,8 +47,7 @@ describe('Timer', () => {
   test('stops when it gets to 0', () => {
     const {getByTestId} = render(<Timer/>);
     const timer = getByTestId('countdown');
-    const activationButton = getByTestId('activation-button');
-    userEvent.click(activationButton)
+    activateCoundown(getByTestId)
 
     act(() => {
       jest.advanceTimersByTime(25 * 60 * 1000);
@@ -55,4 +58,33 @@ describe('Timer', () => {
     });
     expect(timer).toHaveTextContent('00:00');
   });
+
+  test('pause button is hidden by default', () => {
+    const {queryByTestId} = render(<Timer/>);
+    expect(queryByTestId('pause-button')).toBeNull()
+  })
+
+  test('pause button is shown when the countdown is active', () => {
+    const {queryByTestId, getByTestId} = render(<Timer/>);
+    activateCoundown(getByTestId)
+    expect(queryByTestId('pause-button')).toBeTruthy()
+  })
+
+  test('pause button stops the countdown', () => {
+    const {getByTestId} = render(<Timer/>);
+    const timer = getByTestId('countdown');
+
+    activateCoundown(getByTestId)
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+    expect(timer).toHaveTextContent('24:59');
+
+    const pauseButton = getByTestId('pause-button')
+    userEvent.click(pauseButton)
+    act(() => {
+      jest.advanceTimersByTime(3000);
+    });
+    expect(timer).toHaveTextContent('24:59');
+  })
 });
