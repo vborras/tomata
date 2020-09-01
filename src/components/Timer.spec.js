@@ -52,11 +52,11 @@ describe('Timer', () => {
     act(() => {
       jest.advanceTimersByTime(25 * 60 * 1000);
     });
-    expect(timer).toHaveTextContent('00:00');
+    const timerText = timer.textContent
     act(() => {
       jest.advanceTimersByTime(1000);
     });
-    expect(timer).toHaveTextContent('00:00');
+    expect(timer).toHaveTextContent(timerText);
   });
 
   test('activation button is shown by default', () => {
