@@ -59,6 +59,17 @@ describe('Timer', () => {
     expect(timer).toHaveTextContent('00:00');
   });
 
+  test('activation button is shown by default', () => {
+    const {queryByTestId} = render(<Timer/>);
+    expect(queryByTestId('activation-button')).toBeTruthy()
+  })
+
+  test('activation button is hidden when the countdown is active', () => {
+    const {queryByTestId, getByTestId} = render(<Timer/>);
+    activateCoundown(getByTestId)
+    expect(queryByTestId('activation-button')).toBeNull()
+  })
+
   test('pause button is hidden by default', () => {
     const {queryByTestId} = render(<Timer/>);
     expect(queryByTestId('pause-button')).toBeNull()

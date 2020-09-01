@@ -21,14 +21,14 @@ function Timer() {
   return (
       <div className="timer">
         <h1 data-testid="countdown">{minutesDifference}:{secondsDifference}</h1>
-        <button data-testid="activation-button"
-                onClick={() => setIsActive(true)}>
-          Activate
-        </button>
-        { isActive && <button data-testid="pause-button"
-                onClick={() => setIsActive(false)}>
+        {isActive && <button data-testid="pause-button"
+                             onClick={() => setIsActive(false)}>
           Pause
-        </button> }
+        </button>}
+        {!isActive && <button data-testid="activation-button"
+                              onClick={() => setIsActive(true)}>
+          Activate
+        </button>}
       </div>
   );
 }
