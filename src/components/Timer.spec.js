@@ -98,4 +98,31 @@ describe('Timer', () => {
     });
     expect(timer).toHaveTextContent('24:59');
   })
+
+  test('timer is paused to 5 min after a 25 min countdown', () => {
+    const {getByTestId} = render(<Timer/>);
+    const timer = getByTestId('countdown');
+    activateCoundown(getByTestId)
+
+    act(() => {
+      jest.advanceTimersByTime(25 * 60 * 1000);
+    });
+    expect(timer).toHaveTextContent('05:00');
+  })
+
+  test('timer is paused to 25 min after a 5 min countdown', () => {
+    const {getByTestId} = render(<Timer/>);
+    const timer = getByTestId('countdown');
+    activateCoundown(getByTestId)
+
+    act(() => {
+      jest.advanceTimersByTime(25 * 60 * 1000);
+    });
+
+    activateCoundown(getByTestId)
+    act(() => {
+      jest.advanceTimersByTime(5 * 60 * 1000);
+    });
+    expect(timer).toHaveTextContent('25:00');
+  })
 });
