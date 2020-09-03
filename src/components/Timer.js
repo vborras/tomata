@@ -29,6 +29,13 @@ function Timer() {
     setDelta(SEQUENCE[currentSequenceIndex] * 60)
   }, [currentSequenceIndex])
 
+  useEffect(() => {
+    if (delta === 0) {
+      const audio = new Audio(require('../assets/alarm.mp3'))
+      audio.play()
+    }
+  }, [delta])
+
   const secondsDifference = (Math.floor(delta % 60)).toString()
       .padStart(2, '0');
   const minutesDifference = (Math.floor(delta / 60)).toString()
