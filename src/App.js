@@ -4,12 +4,12 @@ import Timer from './components/Timer';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>TOMATA</h1>
-        <Timer />
-      </header>
-    </div>
+      <div className="App">
+        <main>
+          <h1 className="title">TOMATA</h1>
+          <Timer/>
+        </main>
+      </div>
   );
 }
 

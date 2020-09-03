@@ -1,0 +1,27 @@
+body, html {
+    padding: 0;
+    margin: 0;
+}
+
+.App {
+    background: #E93636;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    color: #fff;
+    align-items: center;
+    flex-flow: column;
+}
+
+main {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+.title {
+    font-family: 'Fredoka One', cursive;
+    height: 80px;
+    flex: 0 0 80px;
+}
+
