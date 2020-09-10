@@ -1,14 +1,26 @@
+:root {
+    --red: #E93636;
+    --red-dark: #C81414;
+    --white: white;
+
+    --font-title: 'Fredoka One', sans-serif;
+    --font-normal: 'Nunito', sans-serif;
+
+    --shadow-lg: 0 6px 16px var(--red-dark);
+}
+
+
 body, html {
     padding: 0;
     margin: 0;
 }
 
 .App {
-    background: #E93636;
+    background: var(--red);
     display: flex;
     justify-content: center;
     flex-grow: 1;
-    color: #fff;
+    color: var(--white);
     align-items: center;
     flex-flow: column;
 }
@@ -20,7 +32,7 @@ main {
 }
 
 .title {
-    font-family: 'Fredoka One', cursive;
+    font-family: var(--font-title);
     height: 80px;
     flex: 0 0 80px;
     text-align: center;

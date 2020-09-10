@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styles from './Timer.module.css'
+import {Button} from '../button/Button';
 
 const SEQUENCE = [25, 5];
 
@@ -32,7 +33,7 @@ function Timer() {
 
   useEffect(() => {
     if (delta === 0) {
-      const audio = new Audio(require('../assets/alarm.mp3'))
+      const audio = new Audio(require('../../assets/alarm.mp3'))
       audio.play()
     }
   }, [delta])
@@ -45,16 +46,16 @@ function Timer() {
   return (
       <div className={styles.timer}>
         <h1 data-testid="countdown" className={styles.countdown}>
-          {minutesDifference}:{secondsDifference}
+          {`${minutesDifference}:${secondsDifference}`}
         </h1>
-        {isActive && <button data-testid="pause-button"
+        {isActive && <Button data-testid="pause-button"
                              onClick={() => setIsActive(false)}>
           Pause
-        </button>}
-        {!isActive && <button data-testid="activation-button"
+        </Button>}
+        {!isActive && <Button data-testid="activation-button"
                               onClick={() => setIsActive(true)}>
           Activate
-        </button>}
+        </Button>}
       </div>
   );
 }

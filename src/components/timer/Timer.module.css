@@ -3,9 +3,12 @@
     justify-content: center;
     align-items: center;
     flex-flow: column;
+    width: 270px;
 }
 
 .countdown {
-    font-family: 'Fredoka One', sans-serif;
+    font-family: var(--font-title);
     font-size: 5rem;
+    text-shadow: var(--shadow-lg);
+    margin-bottom: 1rem;
 }
