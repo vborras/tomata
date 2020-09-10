@@ -1,0 +1,11 @@
+.timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+
+.countdown {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 5rem;
+}

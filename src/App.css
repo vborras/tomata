@@ -23,5 +23,6 @@ main {
     font-family: 'Fredoka One', cursive;
     height: 80px;
     flex: 0 0 80px;
+    text-align: center;
 }
 

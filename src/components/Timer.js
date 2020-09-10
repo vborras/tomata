@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import styles from './Timer.module.css'
 
 const SEQUENCE = [25, 5];
 
@@ -42,8 +43,10 @@ function Timer() {
       .padStart(2, '0');
 
   return (
-      <div className="timer">
-        <h1 data-testid="countdown">{minutesDifference}:{secondsDifference}</h1>
+      <div className={styles.timer}>
+        <h1 data-testid="countdown" className={styles.countdown}>
+          {minutesDifference}:{secondsDifference}
+        </h1>
         {isActive && <button data-testid="pause-button"
                              onClick={() => setIsActive(false)}>
           Pause
