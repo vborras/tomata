@@ -3,10 +3,20 @@ import styles from './Timer.module.css'
 import {Button} from '../button/Button';
 
 const SEQUENCE = [25, 5];
+const WORK_TIME = 25;
+const REST_TIME = 5;
+
+const WORK_STATE = 'work'
+const REST_STATE = 'rest'
+
+const TIMES = {
+  [WORK_STATE]: WORK_TIME,
+  [REST_STATE]: REST_TIME
+}
 
 function Timer() {
-  const [currentSequenceIndex, setCurrentSequenceIndex] = useState(0);
-  const [delta, setDelta] = useState(SEQUENCE[currentSequenceIndex] * 60);
+  const [currentState, setCurrentState] = useState(WORK_STATE);
+  const [delta, setDelta] = useState(TIMES[currentState] * 60);
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
@@ -21,15 +31,13 @@ function Timer() {
   useEffect(() => {
     if (delta === 0 && isActive) {
       setIsActive(false);
-      setCurrentSequenceIndex(currentSequenceIndex === SEQUENCE.length - 1
-          ? 0
-          : currentSequenceIndex + 1);
+      setCurrentState(currentState === WORK_STATE ? REST_STATE : WORK_STATE);
     }
   }, [delta, isActive]);
 
   useEffect(() => {
-    setDelta(SEQUENCE[currentSequenceIndex] * 60)
-  }, [currentSequenceIndex])
+    setDelta(TIMES[currentState] * 60)
+  }, [currentState])
 
   useEffect(() => {
     if (delta === 0) {
@@ -54,7 +62,7 @@ function Timer() {
         </Button>}
         {!isActive && <Button data-testid="activation-button"
                               onClick={() => setIsActive(true)}>
-          Activate
+          Start
         </Button>}
       </div>
   );
