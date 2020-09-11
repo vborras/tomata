@@ -1,12 +1,14 @@
 :root {
     --red: #E93636;
     --red-dark: #C81414;
+    --red-darker: #9F0404;
     --white: white;
 
     --font-title: 'Fredoka One', sans-serif;
     --font-normal: 'Nunito', sans-serif;
 
-    --shadow-lg: 0 6px 16px var(--red-dark);
+    --shadow-lg: 0 1px 0px var(--red-dark), 0 3px 4px var(--red-dark), 0 4px 10px var(--red-dark), 0 6px 20px var(--red-dark);
+    /*--shadow-lg: 0 6px 16px var(--red-dark);*/
 }
 
 
