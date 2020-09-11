@@ -3,7 +3,7 @@ import Timer from './Timer';
 import {act, render} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-const activateCoundown = function (getByTestId) {
+const activateCountdown = function (getByTestId) {
     const activationButton = getByTestId('activation-button');
     userEvent.click(activationButton)
 }
@@ -36,7 +36,7 @@ describe('Timer', () => {
   test('discounts one second at a time when activated', () => {
     const {getByTestId} = render(<Timer/>);
     const timer = getByTestId('countdown');
-    activateCoundown(getByTestId)
+    activateCountdown(getByTestId)
 
     act(() => {
       jest.advanceTimersByTime(1000);
@@ -47,7 +47,7 @@ describe('Timer', () => {
   test('stops when it gets to 0', () => {
     const {getByTestId} = render(<Timer/>);
     const timer = getByTestId('countdown');
-    activateCoundown(getByTestId)
+    activateCountdown(getByTestId)
 
     act(() => {
       jest.advanceTimersByTime(25 * 60 * 1000);
@@ -66,7 +66,7 @@ describe('Timer', () => {
 
   test('activation button is hidden when the countdown is active', () => {
     const {queryByTestId, getByTestId} = render(<Timer/>);
-    activateCoundown(getByTestId)
+    activateCountdown(getByTestId)
     expect(queryByTestId('activation-button')).toBeNull()
   })
 
@@ -77,7 +77,7 @@ describe('Timer', () => {
 
   test('pause button is shown when the countdown is active', () => {
     const {queryByTestId, getByTestId} = render(<Timer/>);
-    activateCoundown(getByTestId)
+    activateCountdown(getByTestId)
     expect(queryByTestId('pause-button')).toBeTruthy()
   })
 
@@ -85,7 +85,7 @@ describe('Timer', () => {
     const {getByTestId} = render(<Timer/>);
     const timer = getByTestId('countdown');
 
-    activateCoundown(getByTestId)
+    activateCountdown(getByTestId)
     act(() => {
       jest.advanceTimersByTime(1000);
     });
@@ -102,7 +102,7 @@ describe('Timer', () => {
   test('timer is paused to 5 min after a 25 min countdown', () => {
     const {getByTestId} = render(<Timer/>);
     const timer = getByTestId('countdown');
-    activateCoundown(getByTestId)
+    activateCountdown(getByTestId)
 
     act(() => {
       jest.advanceTimersByTime(25 * 60 * 1000);
@@ -113,13 +113,44 @@ describe('Timer', () => {
   test('timer is paused to 25 min after a 5 min countdown', () => {
     const {getByTestId} = render(<Timer/>);
     const timer = getByTestId('countdown');
-    activateCoundown(getByTestId)
+    activateCountdown(getByTestId)
 
     act(() => {
       jest.advanceTimersByTime(25 * 60 * 1000);
     });
 
-    activateCoundown(getByTestId)
+    activateCountdown(getByTestId)
+    act(() => {
+      jest.advanceTimersByTime(5 * 60 * 1000);
+    });
+    expect(timer).toHaveTextContent('25:00');
+  })
+
+  test('skips to next work time when skip button is pressed', () => {
+    const { getByTestId } = render(<Timer />);
+    const timer = getByTestId('countdown');
+    activateCountdown(getByTestId)
+    act(() => {
+      jest.advanceTimersByTime(5 * 60 * 1000);
+    });
+    expect(timer).toHaveTextContent('20:00');
+
+    const skipButton = getByTestId('skip-button');
+    userEvent.click(skipButton)
+
+    expect(timer).toHaveTextContent('25:00');
+  })
+
+  test('timer is paused after pressing the skip button', () => {
+    const { getByTestId } = render(<Timer />);
+    const timer = getByTestId('countdown');
+    activateCountdown(getByTestId)
+    act(() => {
+      jest.advanceTimersByTime(5 * 60 * 1000);
+    });
+
+    const skipButton = getByTestId('skip-button');
+    userEvent.click(skipButton)
     act(() => {
       jest.advanceTimersByTime(5 * 60 * 1000);
     });
