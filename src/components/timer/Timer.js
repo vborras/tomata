@@ -7,13 +7,13 @@ import {Marks} from '../marks/Marks';
 const WORK_TIME = 25;
 const REST_TIME = 5;
 
-const WORK_STATE = 'work'
-const REST_STATE = 'rest'
+const WORK_STATE = 'work';
+const REST_STATE = 'rest';
 
 const TIMES = {
   [WORK_STATE]: WORK_TIME,
-  [REST_STATE]: REST_TIME
-}
+  [REST_STATE]: REST_TIME,
+};
 
 function Timer() {
   const [currentState, setCurrentState] = useState(WORK_STATE);
@@ -32,35 +32,37 @@ function Timer() {
   useEffect(() => {
     if (delta === 0 && isActive) {
       setIsActive(false);
-      setCurrentState(currentState === WORK_STATE ? REST_STATE : WORK_STATE);
+      setCurrentState(currentState => currentState === WORK_STATE
+          ? REST_STATE
+          : WORK_STATE);
     }
   }, [delta, isActive]);
 
   useEffect(() => {
-    setDelta(TIMES[currentState] * 60)
-  }, [currentState])
+    setDelta(TIMES[currentState] * 60);
+  }, [currentState]);
 
   useEffect(() => {
     if (delta === 0) {
-      const audio = new Audio(require('../../assets/alarm.mp3'))
-      audio.play()
+      const audio = new Audio(require('../../assets/alarm.mp3'));
+      audio.play();
     }
-  }, [delta])
+  }, [delta]);
 
-  const secondsDifference = (Math.floor(delta % 60)).toString()
-      .padStart(2, '0');
-  const minutesDifference = (Math.floor(delta / 60)).toString()
-      .padStart(2, '0');
+  const secondsDifference = (Math.floor(delta % 60)).toString().
+      padStart(2, '0');
+  const minutesDifference = (Math.floor(delta / 60)).toString().
+      padStart(2, '0');
 
   const skip = () => {
-    setCurrentState(WORK_STATE)
-    setDelta(TIMES[currentState] * 60)
-    setIsActive(false)
-  }
+    setCurrentState(WORK_STATE);
+    setDelta(TIMES[currentState] * 60);
+    setIsActive(false);
+  };
 
   return (
       <div className={styles.timer}>
-        <Marks time={delta} />
+        <Marks time={delta}/>
         <h1 data-testid="countdown" className={styles.countdown}>
           {`${minutesDifference}:${secondsDifference}`}
         </h1>
@@ -72,7 +74,9 @@ function Timer() {
                               onClick={() => setIsActive(true)}>
           Start
         </Button>}
-        <Button data-testid="skip-button" className={buttonStyles['button--outline']} onClick={skip}>Skip</Button>
+        <Button data-testid="skip-button"
+                className={buttonStyles['button--outline']}
+                onClick={skip}>Skip</Button>
       </div>
   );
 }
