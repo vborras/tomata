@@ -1,0 +1,23 @@
+.marks {
+    background: url('../../assets/marks.svg') repeat-x;
+    background-position: 0 5px;
+    width: 10800px;
+    height: 40px;
+    border-top: 1px solid var(--red-darker);
+    box-shadow: 0 -1px 0 var(--red), 0 -2px 1px var(--red-light), inset 0 2px 1px var(--red-light);
+    padding: 0 3600px;
+    display: flex;
+    padding-top: 20px;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-left: -3600px;
+    transition: all 1s ease-in-out;
+}
+
+.number {
+    color: white;
+    width: 300px;
+    text-align: center;
+    font-family: var(--font-title);
+}

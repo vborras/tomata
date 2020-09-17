@@ -1,4 +1,5 @@
 :root {
+    --red-light: #FE5E5E;
     --red: #E93636;
     --red-dark: #C81414;
     --red-darker: #9F0404;
@@ -25,6 +26,7 @@ body, html {
     color: var(--white);
     align-items: center;
     flex-flow: column;
+    overflow-x: hidden;
 }
 
 main {
