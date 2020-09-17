@@ -1,0 +1,7 @@
+.countdown {
+    font-family: var(--font-title);
+    font-size: 5rem;
+    text-shadow: var(--shadow-lg);
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+}

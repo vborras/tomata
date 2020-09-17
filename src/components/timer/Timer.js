@@ -3,6 +3,7 @@ import styles from './Timer.module.css';
 import {Button} from '../button/Button';
 import buttonStyles from '../button/Button.module.css';
 import {Marks} from '../marks/Marks';
+import Countdown from '../countdown/Countdown';
 
 const WORK_TIME = 25;
 const REST_TIME = 5;
@@ -49,10 +50,6 @@ function Timer() {
     }
   }, [delta]);
 
-  const secondsDifference = (Math.floor(delta % 60)).toString()
-      .padStart(2, '0');
-  const minutesDifference = (Math.floor(delta / 60)).toString()
-      .padStart(2, '0');
 
   const skip = () => {
     setCurrentState(WORK_STATE);
@@ -63,9 +60,7 @@ function Timer() {
   return (
       <div className={styles.timer}>
         <Marks time={delta}/>
-        <h1 data-testid="countdown" className={styles.countdown}>
-          {`${minutesDifference}:${secondsDifference}`}
-        </h1>
+        <Countdown delta={delta} />
         {isActive && <Button data-testid="pause-button"
                              onClick={() => setIsActive(false)}>
           Pause
