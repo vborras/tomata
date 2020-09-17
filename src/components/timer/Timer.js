@@ -49,10 +49,10 @@ function Timer() {
     }
   }, [delta]);
 
-  const secondsDifference = (Math.floor(delta % 60)).toString().
-      padStart(2, '0');
-  const minutesDifference = (Math.floor(delta / 60)).toString().
-      padStart(2, '0');
+  const secondsDifference = (Math.floor(delta % 60)).toString()
+      .padStart(2, '0');
+  const minutesDifference = (Math.floor(delta / 60)).toString()
+      .padStart(2, '0');
 
   const skip = () => {
     setCurrentState(WORK_STATE);
