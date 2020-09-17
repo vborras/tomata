@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import styles from './Timer.module.css';
-import {Button} from '../button/Button';
-import buttonStyles from '../button/Button.module.css';
 import {Marks} from '../marks/Marks';
 import Countdown from '../countdown/Countdown';
+import ControlButtons from '../control-buttons/ControlButtons';
 
 const WORK_TIME = 25;
 const REST_TIME = 5;
@@ -50,7 +49,6 @@ function Timer() {
     }
   }, [delta]);
 
-
   const skip = () => {
     setCurrentState(WORK_STATE);
     setDelta(TIMES[currentState] * 60);
@@ -60,18 +58,9 @@ function Timer() {
   return (
       <div className={styles.timer}>
         <Marks time={delta}/>
-        <Countdown delta={delta} />
-        {isActive && <Button data-testid="pause-button"
-                             onClick={() => setIsActive(false)}>
-          Pause
-        </Button>}
-        {!isActive && <Button data-testid="activation-button"
-                              onClick={() => setIsActive(true)}>
-          Start
-        </Button>}
-        <Button data-testid="skip-button"
-                className={buttonStyles['button--outline']}
-                onClick={skip}>Skip</Button>
+        <Countdown delta={delta}/>
+        <ControlButtons isActive={isActive} setActive={() => setIsActive(true)}
+                        setInactive={() => setIsActive(false)} skip={skip}/>
       </div>
   );
 }
